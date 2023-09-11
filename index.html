@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""
+    ></script>
+
+    <!-- <script defer src="other.js"></script> -->
+    <script defer src="script.js"></script>
+    <title>mapty // Map your workouts</title>
+  </head>
+  <body>
+    <div class="info-modal-button">
+      <img src="info-offwhite.png" />
+    </div>
+    <div class="sidebar">
+      <img src="logo.png" alt="Logo" class="logo" />
+
+      <ul class="workouts">
+        <form class="form hidden">
+          <div class="form__row">
+            <label class="form__label">Type</label>
+            <select class="form__input form__input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Distance</label>
+            <input class="form__input form__input--distance" placeholder="km" />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="min"
+            />
+          </div>
+
+          <div class="form__row">
+            <label class="form__label">Cadence</label>
+            <input
+              class="form__input form__input--cadence"
+              placeholder="step/min"
+            />
+          </div>
+          <div class="form__row form__row--hidden">
+            <label class="form__label">Elev Gain</label>
+            <input
+              class="form__input form__input--elevation"
+              placeholder="meters"
+            />
+          </div>
+          <button class="form__btn">OK</button>
+        </form>
+
+        <!-- <li class="workout workout--running" data-id="1234567890">
+          <h2 class="workout__title">Running on April 14</h2>
+          
+          <div class="workout__details">
+            <span class="workout__icon">🏃‍♂️</span>
+            <span class="workout__value">5.2</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">24</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">4.6</span>
+            <span class="workout__unit">min/km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">🦶🏼</span>
+            <span class="workout__value">178</span>
+            <span class="workout__unit">spm</span>
+          </div>
+        </li>
+
+        <li class="workout workout--cycling" data-id="1234567891">
+          <h2 class="workout__title">Cycling on April 5</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🚴‍♀️</span>
+            <span class="workout__value">27</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">95</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">16</span>
+            <span class="workout__unit">km/h</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⛰</span>
+            <span class="workout__value">223</span>
+            <span class="workout__unit">m</span>
+          </div>
+        </li> -->
+      </ul>
+
+    </div>
+    <div class="info-modal hidden">
+      <button class="close-info-modal-button">&times;</button>
+      <h1>Welcome to <img src="logo_black.png" alt="Mapty" class="logo" /></h1>
+      <p>
+        Mapty is a little tool that helps you log your running or cycling
+        workouts based on location. Pretty simple, click on the map, select the
+        type of workout, fill out the details of your workout and press enter!
+        Mapty will create a workout on the map and in the sidebar.
+      </p>
+      <p>
+        This project originated from a Udemy course I took. In particular, this
+        app was a great way to improve my Object-Oriented Programming skills. It
+        is made of 4 main classes:
+      </p>
+      <ul>
+        <li>
+          <strong>An App class:</strong> this is the main class that makes the
+          entire app work. It creates and executes all the different methods
+          needed. Some notable methods are:
+          <ul>
+            <li>
+              <strong>.getPosition() and .loadMap(position):</strong> get the
+              geographic coordinates of the user, and render a map of that
+              location using the
+              <a href="https://leafletjs.com/" target="_blank"
+                >Leaflet library</a
+              >.
+            </li>
+            <li>
+              <strong>.toggleElevationField():</strong> allows to choose the
+              type of workout (running or cycling).
+            </li>
+            <li>
+              <strong>.showForm():</strong> displays the input form in the
+              sidebar to create a new workout.
+            </li>
+            <li>
+              <strong>.newWorktout():</strong> this is the main method in this
+              app, it creates a new workout after the form has been submitted.
+              It first creates a new Running or Cycling object depending on the
+              form and then calls a list of methods. These methods push the
+              workout to a workouts array, display the workout in the sidebar
+              and on the map, hide the form, add the workouts to locale storage
+              and update the totals at the bottom of the sidebar.
+            </li>
+            <li>
+              <strong>.goToMarker():</strong> allows users to recenter the map
+              when they click on a workout from the sidebar. This was a fun one
+              to implement and required me to look deeper into Leaflet docs.
+            </li>
+            <li>
+              <strong>.deleteWorkout():</strong> allows the user to delete a
+              workout using the delete button in the sidebar. When deleting, the
+              workout is removed from the workouts array, the HTML element is
+              removed, the marker on the map is removed, the totals are
+              recalculated and the new workouts array is added to local storage.
+            </li>
+            <li>
+              <strong>.openModal() and .closeModal():</strong> handle the
+              opening and closing of the window you're reading right now.
+            </li>
+            <li>
+              The entire code with more explanations is available on
+              <strong>GitHub</strong>. Scroll to the bottom to find the link.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>A Workout class:</strong> this class creates the properties
+          that are shared by both child classes (Running and Cycling) such as
+          the date, id, distance, duration and geographic coordinates.
+        </li>
+        <li>
+          <strong>A Running class</strong> (child class of Workout): this class
+          creates the properties that are specific to the type of activity
+          selected such as the cadence, the pace and the name.
+        </li>
+        <li>
+          <strong>A Cycling class</strong> (child class of Workout): this class
+          creates the properties that are specific to the type of activity
+          selected such as the elevation gain, the speed and the name.
+        </li>
+      </ul>
+      <p class="tools-used">Tools used:</p>
+      <div class="tools-used-icons">
+        <img src="leaflet.png" alt="" />
+        <img src="html.png" alt="" />
+        <img src="css.png" alt="" />
+        <img src="javascript.png" alt="" />
+      </div>
+    </div>
+    <div class="modal-overlay"></div>
+
+    <div id="map"></div>
+  </body>
+</html>
